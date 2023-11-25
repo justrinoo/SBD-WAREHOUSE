@@ -1,0 +1,33 @@
+<%- include('../partials/header.ejs') %>
+<div class="container py-5 pb-5">
+    <div class="row">
+        <div class="col-md-8 justify-content-center align-items-center mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Buat Waktu</h3>
+                </div>
+                <div class="card-body">
+                    <form action="/time" method="POST">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Tanggal</label>
+                            <input
+                                type="date"
+                                class="form-control mt-2 mb-2"
+                                id="timeAndDate"
+                                name="timeAndDate"
+                            />
+                        </div>
+                        <% if (message) { %>
+                        <p class="text-danger font-semibold"><%= message %></p>
+                        <% } %>
+
+                        <button type="submit" class="btn btn-primary mt-2">
+                            Buat Waktu
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../partials/footer.ejs') %>

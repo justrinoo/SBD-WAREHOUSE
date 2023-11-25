@@ -1,0 +1,83 @@
+<%- include('../partials/header.ejs') %>
+<div class="container py-5 pb-5">
+    <div class="row">
+        <div class="col-md-8 justify-content-center align-items-center mx-auto">
+            <a href="/products">
+                <button class="btn btn-sm btn-dark mb-4">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="22"
+                        height="22"
+                        fill="#fff"
+                        viewBox="0 0 256 256"
+                    >
+                        <path
+                            d="M152,72H128V32a8,8,0,0,0-13.66-5.66l-96,96a8,8,0,0,0,0,11.32l96,96A8,8,0,0,0,128,224V184h24a8,8,0,0,0,8-8V80A8,8,0,0,0,152,72Zm-8,96H120a8,8,0,0,0-8,8v28.69L35.31,128,112,51.31V80a8,8,0,0,0,8,8h24Zm80-88v96a8,8,0,0,1-16,0V80a8,8,0,0,1,16,0Zm-32,0v96a8,8,0,0,1-16,0V80a8,8,0,0,1,16,0Z"
+                        ></path>
+                    </svg>
+                </button>
+            </a>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Edit Produk Gudang</h3>
+                </div>
+                <div class="card-body">
+                    <form
+                        action="/products/edit/<%= product?.product_id %>"
+                        method="POST"
+                    >
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Nama Produk</label>
+                            <input
+                                type="text"
+                                class="form-control mt-2 mb-2"
+                                id="product_name"
+                                name="product_name"
+                                value="<%= product?.product_name.charAt(0).toUpperCase() + product?.product_name.slice(1); %>"
+                                placeholder="Masukan nama produk..."
+                                autocomplete="off"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1"
+                                >Kategori Produk</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control mt-2 mb-2"
+                                id="category"
+                                name="category"
+                                placeholder="Masukan kategori produk..."
+                                autocomplete="off"
+                                value="<%= product?.category.charAt(0).toUpperCase() + product?.category.slice(1); %>"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1"
+                                >Brand Produk</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control mt-2 mb-2"
+                                id="brand"
+                                name="brand"
+                                placeholder="Masukan brand produk..."
+                                autocomplete="off"
+                                value="<%= product?.brand.charAt(0).toUpperCase() + product?.brand.slice(1); %>"
+                            />
+                        </div>
+
+                        <% if (message) { %>
+                        <p class="text-danger font-semibold"><%= message %></p>
+                        <% } %>
+
+                        <button type="submit" class="btn btn-primary mt-2">
+                            Edit Produk
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../partials/footer.ejs') %>

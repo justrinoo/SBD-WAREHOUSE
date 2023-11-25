@@ -1,0 +1,116 @@
+<%- include('../partials/header.ejs') %>
+<style>
+    .isSelected {
+        border: 1.5px solid royalblue;
+    }
+</style>
+<div class="container py-5 pb-5">
+    <div class="row">
+        <div class="col-md-8 justify-content-center align-items-center mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Buat Produk Stok</h3>
+                </div>
+                <div class="card-body">
+                    <form action="/stock" method="POST">
+                        <div class="form-group">
+                            <label for="product_id">Nama Produk</label>
+                            <select
+                                class="form-select mb-3 mt-2"
+                                name="product_id"
+                                id="product_id"
+                            >
+                                <option>Pilih Produk</option>
+                                <% products.forEach((product) => { %>
+                                <option value="<%= product.product_id %>">
+                                    <%= product.product_name %>
+                                </option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="supplier_id">Nama Supplier</label>
+                            <select
+                                class="form-select mb-3 mt-2"
+                                name="supplier_id"
+                                id="supplier_id"
+                            >
+                                <option>Pilih Supplier</option>
+                                <% supplier.forEach((sup) => { %>
+                                <option value="<%= sup.supplier_id %>">
+                                    <%= sup.supplier_name %>
+                                </option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="warehouse_id">Nama Gudang</label>
+                            <select
+                                class="form-select mb-3 mt-2"
+                                name="warehouse_id"
+                                id="warehouse_id"
+                            >
+                                <option>Pilih Gudang</option>
+                                <% warehouse.forEach((gudang) => { %>
+                                <option value="<%= gudang.warehouse_id %>">
+                                    <%= gudang.warehouse_name %>
+                                </option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="time_id">Waktu Dan Tanggal</label>
+                            <select
+                                class="form-select mb-3 mt-2"
+                                name="time_id"
+                                id="time_id"
+                            >
+                                <option>Pilih Waktu</option>
+                                <% time.forEach((waktu) => { %>
+                                <option value="<%= waktu.time_id %>">
+                                    <%= waktu.timeAndDate %>
+                                </option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity_in_stock"
+                                >Quantity Stock</label
+                            >
+                            <input
+                                type="number"
+                                min="1"
+                                class="form-control mt-2 mb-2"
+                                name="quantity_in_stock"
+                                id="quantity_in_stock"
+                                placeholder="Masukan quantity stock..."
+                            />
+                        </div>
+
+                        <% if (message) { %>
+                        <p class="text-danger font-semibold"><%= message %></p>
+                        <% } %>
+
+                        <button type="submit" class="btn btn-primary mt-2">
+                            Buat Stock
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script lang="javascript">
+    function setTime(clickedCard,data) {
+        const selectedIndex = clickedCard.getAttribute('data-index');
+        const prevSelected = document.querySelector('.isSelected');
+        if (prevSelected) {
+            prevSelected.classList.remove('isSelected');
+        }
+        clickedCard.classList.add('isSelected');
+        const res = JSON.parse(data);
+        sessionStorage.setItem('time_id', res.time_id);
+    }
+</script>
+<%- include('../partials/footer.ejs') %>
