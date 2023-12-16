@@ -28,7 +28,7 @@
                     <td class="text-center""><%= warehouse.location.charAt(0).toUpperCase() + warehouse.location.slice(1); %></td>
                     <td class="text-center""><%= warehouse.warehouse_manager.charAt(0).toUpperCase() + warehouse.warehouse_manager.slice(1); %></td>
                     <td class="text-center"">
-                       <a href="/warehouse/detail/<%= warehouse.warehouse_id %>" class="text-decoration-none">
+                       <a href="/warehouse/detail/<%= warehouse.ID_Warehouse %>" class="text-decoration-none">
                              <button class="btn btn-info btn-sm">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -43,11 +43,10 @@
                             </svg>
                         </button>
                     </a>
-                       <a class="text-decoration-none" href="/warehouse/edit/<%= warehouse.warehouse_id %>">
+                       <a class="text-decoration-none" href="/warehouse/edit/<%= warehouse.ID_Warehouse %>">
                          <button class="btn btn-warning btn-sm">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                width="22"
                                 height="22"
                                 fill="#fff"
                                 viewBox="0 0 256 256"
@@ -58,7 +57,7 @@
                             </svg>
                         </button>
                        </a>
-                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#productDelete<%= warehouse.warehouse_id %>">
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#productDelete<%= warehouse.ID_Warehouse %>">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="22"
@@ -71,7 +70,7 @@
                                 ></path>
                             </svg>
                         </button>
-                            <div class="modal fade" id="productDelete<%= warehouse.warehouse_id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal fade" id="productDelete<%= warehouse.ID_Warehouse %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                 <div class="modal-header">
@@ -81,7 +80,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-footer">
-                                    <form action="/warehouse/delete/<%= warehouse.warehouse_id %>" method="post">
+                                    <form action="/warehouse/delete/<%= warehouse.ID_Warehouse %>" method="post">
                                         <button type="submit" class="btn btn-outline-danger">Hapus</button>
                                     </form>
                                 </div>

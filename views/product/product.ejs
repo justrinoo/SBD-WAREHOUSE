@@ -15,8 +15,8 @@
                 <tr>
                     <th class="text-center" scope="col">No</th>
                     <th class="text-center" scope="col">Nama</th>
+                    <th class="text-center" scope="col">Tipe Produk</th>
                     <th class="text-center" scope="col">Kategori</th>
-                    <th class="text-center" scope="col">Brand</th>
                     <th class="text-center" scope="col">Aksi</th>
                 </tr>
             </thead>
@@ -24,11 +24,11 @@
               <% data.forEach((product,index) => { %>
                 <tr>
                     <th class="text-center" scope="row"><%= index + 1 %></th>
-                    <td class="text-center"><%= product.product_name.charAt(0).toUpperCase() + product.product_name.slice(1); %></td>
-                    <td class="text-center""><%= product.category.charAt(0).toUpperCase() + product.category.slice(1); %></td>
-                    <td class="text-center""><%= product.brand.charAt(0).toUpperCase() + product.brand.slice(1); %></td>
+                    <td class="text-center"><%= product.Product_Name.charAt(0).toUpperCase() + product.Product_Name.slice(1); %></td>
+                    <td class="text-center""><%= product.Type_Product.charAt(0).toUpperCase() + product.Type_Product.slice(1); %></td>
+                    <td class="text-center""><%= product.Category.charAt(0).toUpperCase() + product.Category.slice(1); %></td>
                     <td class="text-center"">
-                       <a href="/products/detail/<%= product.product_id %>" class="text-decoration-none">
+                       <a href="/products/detail/<%= product.ID_Product %>" class="text-decoration-none">
                              <button class="btn btn-info btn-sm">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -43,7 +43,7 @@
                             </svg>
                         </button>
                     </a>
-                       <a class="text-decoration-none" href="/products/edit/<%= product.product_id %>">
+                       <a class="text-decoration-none" href="/products/edit/<%= product.ID_Product %>">
                          <button class="btn btn-warning btn-sm">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +58,7 @@
                             </svg>
                         </button>
                        </a>
-                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#productDelete<%= product.product_id %>">
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#productDelete<%= product.ID_Product %>">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="22"
@@ -71,17 +71,17 @@
                                 ></path>
                             </svg>
                         </button>
-                            <div class="modal fade" id="productDelete<%= product.product_id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal fade" id="productDelete<%= product.ID_Product %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                 <div class="modal-header">
                                     <h3 class="modal-title fs-5 fw-light" id="staticBackdropLabel">Yakin ingin menghapus Produk <span class="fw-bold">
-                                        <%= product.product_name %>
+                                        <%= product.Product_Name %>
                                     </span>?</h3>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-footer">
-                                    <form action="/products/delete/<%= product.product_id %>" method="post">
+                                    <form action="/products/delete/<%= product.ID_Product %>" method="post">
                                         <button type="submit" class="btn btn-outline-danger">Hapus</button>
                                     </form>
                                 </div>

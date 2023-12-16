@@ -14,7 +14,7 @@ router.get('/products', function (req, res, next) {
 
 router.get('/products/detail/:id', function (req, res, next) {
     const { id } = req.params;
-    db.query(`SELECT * FROM product WHERE product_id = ${id}`, (err, data) => {
+    db.query(`SELECT * FROM product WHERE ID_Product = ${id}`, (err, data) => {
         if (err) throw err;
         res.render('product/detail', {
             title: 'Warehouse | Detail Product',
@@ -31,9 +31,9 @@ router.get('/products/create', function (req, res) {
 });
 
 router.post('/products', function (req, res) {
-    const { product_name, category, brand } = req.body;
+    const { Product_Name, Type_Product, Category } = req.body;
 
-    if (!product_name || !category || !brand) {
+    if (!Product_Name || !Type_Product || !Category) {
         return res.status(400).render('product/create', {
             message: 'Semua field harus di isi!',
             title: 'Warehouse | Create Product',
@@ -41,12 +41,12 @@ router.post('/products', function (req, res) {
     }
 
     const payloads = {
-        product_name: product_name.toLowerCase(),
-        category: category.toLowerCase(),
-        brand: brand.toLowerCase(),
+        Product_Name: Product_Name.toLowerCase(),
+        Type_Product: Type_Product.toLowerCase(),
+        Category: Category.toLowerCase(),
     };
 
-    const query = `INSERT INTO product (product_name,category,brand) VALUES  ('${payloads.product_name}','${payloads.category}','${payloads.brand}')`;
+    const query = `INSERT INTO product (Product_Name,Type_Product,category) VALUES  ('${payloads.Product_Name}','${payloads.Type_Product}','${payloads.Category}')`;
     db.query(query, (err, _) => {
         if (err) {
             return res
@@ -60,7 +60,7 @@ router.post('/products', function (req, res) {
 router.get('/products/edit/:id', function (req, res) {
     const { id } = req.params;
     db.query(
-        `SELECT * FROM product WHERE product_id = ${id}`,
+        `SELECT * FROM product WHERE ID_Product = ${id}`,
         (err, result) => {
             res.render('product/edit', {
                 title: 'Warehouse | Edit Product',
@@ -73,35 +73,35 @@ router.get('/products/edit/:id', function (req, res) {
 
 router.post('/products/edit/:id', function (req, res) {
     const { id } = req.params;
-    const { product_name, category, brand } = req.body;
+    const { Product_Name, Type_Product, Category } = req.body;
 
-    if (!product_name || !category || !brand) {
+    if (!Product_Name || !Type_Product || !Category) {
         return res.status(400).render('product/edit', {
             message: 'Semua field harus di isi!',
             title: 'Warehouse | Edit Product',
             product: {
-                product_id: id,
-                product_name,
-                category,
-                brand,
+                ID_Product: id,
+                Product_Name,
+                Type_Product,
+                Category,
             },
         });
     }
 
     const payloads = {
-        product_name: product_name.toLowerCase(),
-        category: category.toLowerCase(),
-        brand: brand.toLowerCase(),
+        Product_Name: Product_Name.toLowerCase(),
+        Type_Product: Type_Product.toLowerCase(),
+        Category: Category.toLowerCase(),
     };
 
-    const query = `UPDATE product SET ? WHERE product_id = ${id}`;
+    const query = `UPDATE product SET ? WHERE ID_Product = ${id}`;
     db.query(
         {
             sql: query,
             values: {
-                product_name: payloads.product_name,
-                category: payloads.category,
-                brand: payloads.brand,
+                Product_Name: payloads.Product_Name,
+                Type_Product: payloads.Type_Product,
+                Category: payloads.Category,
             },
         },
         (err, _) => {
@@ -118,7 +118,7 @@ router.post('/products/edit/:id', function (req, res) {
 router.post('/products/delete/:id', function (req, res) {
     const { id } = req.params;
 
-    const query = `DELETE FROM product WHERE product_id = ${id}`;
+    const query = `DELETE FROM product WHERE ID_Product = ${id}`;
 
     db.query(query, (err, _) => {
         if (err) {

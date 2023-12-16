@@ -15,7 +15,7 @@ router.get('/warehouse', function (req, res, next) {
 router.get('/warehouse/detail/:id', function (req, res, next) {
     const { id } = req.params;
     db.query(
-        `SELECT * FROM warehouse WHERE warehouse_id = ${id}`,
+        `SELECT * FROM warehouse WHERE ID_Warehouse = ${id}`,
         (err, data) => {
             if (err) throw err;
             res.render('warehouse/detail', {
@@ -52,6 +52,7 @@ router.post('/warehouse', function (req, res) {
     const query = `INSERT INTO warehouse (warehouse_name,location,warehouse_manager) VALUES  ('${payloads.warehouse_name}','${payloads.location}','${payloads.warehouse_manager}')`;
     db.query(query, (err, _) => {
         if (err) {
+            console.log(err);
             return res
                 .status(500)
                 .send('Terjadi kesalahan dalam penambahan warehouse');
@@ -63,7 +64,7 @@ router.post('/warehouse', function (req, res) {
 router.get('/warehouse/edit/:id', function (req, res) {
     const { id } = req.params;
     db.query(
-        `SELECT * FROM warehouse WHERE warehouse_id = ${id}`,
+        `SELECT * FROM warehouse WHERE ID_Warehouse = ${id}`,
         (err, result) => {
             res.render('warehouse/edit', {
                 title: 'Warehouse | Edit Gudang',
@@ -83,7 +84,7 @@ router.post('/warehouse/edit/:id', function (req, res) {
             message: 'Semua field harus di isi!',
             title: 'Warehouse | Edit Gudang',
             warehouse: {
-                warehouse_id: id,
+                ID_Warehouse: id,
                 warehouse_name,
                 location,
                 warehouse_manager,
@@ -97,7 +98,7 @@ router.post('/warehouse/edit/:id', function (req, res) {
         warehouse_manager: warehouse_manager.toLowerCase(),
     };
 
-    const query = `UPDATE warehouse SET ? WHERE warehouse_id = ${id}`;
+    const query = `UPDATE warehouse SET ? WHERE ID_Warehouse = ${id}`;
     db.query(
         {
             sql: query,
@@ -109,6 +110,7 @@ router.post('/warehouse/edit/:id', function (req, res) {
         },
         (err, _) => {
             if (err) {
+                console.log(err);
                 return res
                     .status(500)
                     .send('Terjadi kesalahan dalam penambahan warehouse');
@@ -121,7 +123,7 @@ router.post('/warehouse/edit/:id', function (req, res) {
 router.post('/warehouse/delete/:id', function (req, res) {
     const { id } = req.params;
 
-    const query = `DELETE FROM warehouse WHERE warehouse_id = ${id}`;
+    const query = `DELETE FROM warehouse WHERE ID_Warehouse = ${id}`;
 
     db.query(query, (err, _) => {
         if (err) {

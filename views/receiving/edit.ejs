@@ -1,0 +1,80 @@
+<%- include('../partials/header.ejs') %>
+<div class="container py-5 pb-5">
+    <div class="row">
+        <div class="col-md-8 justify-content-center align-items-center mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Edit Penerimaan</h3>
+                </div>
+                <div class="card-body">
+                    <form
+                        action="/receivings/edit/<%= receiving.ID_Receiving %>"
+                        method="POST"
+                    >
+                        <div class="form-group">
+                            <label for="">Tanggal</label>
+                            <input
+                                type="date"
+                                class="form-control mt-2 mb-2"
+                                id="Date_Time"
+                                value="<%= receiving.Date_Time %>"
+                                name="Date_Time"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label>Gudang</label>
+                            <select
+                                class="form-select mt-2 mb-2"
+                                name="ID_Warehouse"
+                                id="ID_Warehouse"
+                            >
+                                <option>Pilih Gudang</option>
+                                <% warehouse?.forEach(gudang => { %>
+                                <option
+                                    value="<%= gudang.ID_Warehouse %>"
+                                    selected
+                                >
+                                    <%= gudang.warehouse_name %>
+                                </option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Kuantity Product</label>
+                            <input
+                                type="number"
+                                class="form-control mt-2 mb-2"
+                                id="Kuantity_Product"
+                                name="Kuantity_Product"
+                                value="<%= receiving.Kuantity_Product %>"
+                                placeholder="Masukan Kuantity Product..."
+                                autocomplete="off"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label>Notes</label>
+                            <input
+                                type="text"
+                                class="form-control mt-2 mb-2"
+                                id="Note"
+                                placeholder="Masukan Notes..."
+                                value="<%= receiving.Note %>"
+                                name="Note"
+                                autocomplete="off"
+                            />
+                        </div>
+
+                        <% if (message) { %>
+                        <p class="text-danger font-semibold"><%= message %></p>
+                        <% } %>
+
+                        <button type="submit" class="btn btn-primary mt-2">
+                            Kirim
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../partials/footer.ejs') %>

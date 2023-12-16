@@ -6,42 +6,41 @@ moment.locale('id');
 
 router.get('/stock', function (req, res, next) {
     db.query(
-        'SELECT stock.stock_id, product.product_name, stock.quantity_in_stock, supplier.supplier_name, warehouse.warehouse_name, time.timeAndDate FROM stock INNER JOIN product ON product.product_id = stock.product_id INNER JOIN supplier ON supplier.supplier_id = stock.supplier_id INNER JOIN warehouse ON warehouse.warehouse_id = stock.warehouse_id INNER JOIN time ON time.time_id = stock.time_id',
-        (err, data) => {
-            const newData = data?.map((stock) => {
-                const newTime = {
-                    ...stock,
-                    timeAndDate: moment(stock.timeAndDate).format('LLLL'),
-                };
-                return newTime;
-            });
-
-            if (err) throw err;
+        'SELECT ID_Stock, receiving.Kuantity_Product, stock.Stock_Balance, product.Product_Name, vendor.company_name, warehouse.warehouse_name FROM stock JOIN product ON product.ID_Product = stock.ID_Product JOIN vendor ON vendor.ID_Vendor = stock.ID_Vendor JOIN warehouse ON warehouse.ID_Warehouse = stock.ID_Warehouse JOIN receiving ON receiving.ID_Receiving = stock.ID_Receiving',
+        (err, result) => {
+            console.log(result);
+            if (err) {
+                throw new Error(err);
+            }
             res.render('stock/index', {
-                title: 'Warehouse | stock',
-                data: newData,
+                title: 'Warehouse | Stock',
+                message: '',
+                data: result,
             });
         }
     );
 });
 
-router.get('/stock/detail/:id', function (req, res, next) {
+router.get('/stocks/detail/:id', function (req, res, next) {
     const { id } = req.params;
-    db.query(`SELECT * FROM stock WHERE stock_id = ${id}`, (err, data) => {
-        if (err) throw err;
-        res.render('stock/detail', {
-            title: 'Warehouse | Detail stock',
-            data: data[0],
-        });
-    });
+    db.query(
+        `SELECT ID_Stock, stock.Kuantity_Product, stock.Stock_Balance, product.Product_Name, vendor.company_name, warehouse.warehouse_name FROM stock JOIN product ON product.ID_Product = stock.ID_Product JOIN vendor ON vendor.ID_Vendor = stock.ID_Vendor JOIN warehouse ON warehouse.ID_Warehouse = stock.ID_Warehouse WHERE ID_Stock = ${id}`,
+        (err, data) => {
+            if (err) throw err;
+            res.render('stock/detail', {
+                title: 'Warehouse | Detail stock',
+                data: data[0],
+            });
+        }
+    );
 });
 
 router.get('/stock/create', async function (req, res) {
     try {
         const tempProducts = [];
-        const tempSuppliers = [];
+        const tempvendors = [];
         const tempWarehouse = [];
-        const tempTime = [];
+        const tempReceiving = [];
 
         const productQuery = () =>
             new Promise((resolve, reject) => {
@@ -54,13 +53,13 @@ router.get('/stock/create', async function (req, res) {
                     }
                 });
             });
-        const SupplierQuery = () =>
+        const VendorQuery = () =>
             new Promise((resolve, reject) => {
-                db.query('SELECT * FROM supplier', (error, result) => {
+                db.query('SELECT * FROM vendor', (error, result) => {
                     if (error) {
                         reject(error);
                     } else {
-                        tempSuppliers.push(...result);
+                        tempvendors.push(...result);
                         resolve(result);
                     }
                 });
@@ -76,51 +75,42 @@ router.get('/stock/create', async function (req, res) {
                     }
                 });
             });
-        const timeQuery = () =>
+        const receivingQuery = () =>
             new Promise((resolve, reject) => {
-                db.query('SELECT * FROM time', (error, result) => {
+                db.query('SELECT * FROM receiving', (error, result) => {
                     if (error) {
                         reject(error);
                     } else {
-                        const data = result?.map((time) => {
-                            const newTime = {
-                                ...time,
-                                timeAndDate: moment(time.timeAndDate).format(
-                                    'LLLL'
-                                ),
-                            };
-                            return newTime;
-                        });
-                        tempTime.push(...data);
+                        tempReceiving.push(...result);
                         resolve(result);
                     }
                 });
             });
 
         await productQuery();
-        await SupplierQuery();
+        await VendorQuery();
         await wareHouseQuery();
-        await timeQuery();
+        await receivingQuery();
 
         res.render('stock/create', {
             title: 'Warehouse | Create stock',
             message: '',
             products: tempProducts,
-            supplier: tempSuppliers,
+            vendor: tempvendors,
             warehouse: tempWarehouse,
-            time: tempTime,
+            receiving: tempReceiving,
         });
     } catch (error) {
-        console.log('error', error);
+        throw new Error(error.response);
     }
 });
 
 router.post('/stock', async function (req, res) {
     try {
         const tempProducts = [];
-        const tempSuppliers = [];
+        const tempvendors = [];
         const tempWarehouse = [];
-        const tempTime = [];
+        const tempReceiving = [];
 
         const productQuery = () =>
             new Promise((resolve, reject) => {
@@ -133,13 +123,13 @@ router.post('/stock', async function (req, res) {
                     }
                 });
             });
-        const SupplierQuery = () =>
+        const VendorQuery = () =>
             new Promise((resolve, reject) => {
-                db.query('SELECT * FROM supplier', (error, result) => {
+                db.query('SELECT * FROM vendor', (error, result) => {
                     if (error) {
                         reject(error);
                     } else {
-                        tempSuppliers.push(...result);
+                        tempvendors.push(...result);
                         resolve(result);
                     }
                 });
@@ -155,68 +145,58 @@ router.post('/stock', async function (req, res) {
                     }
                 });
             });
-        const timeQuery = () =>
+        const receivingQuery = () =>
             new Promise((resolve, reject) => {
-                db.query('SELECT * FROM time', (error, result) => {
+                db.query('SELECT * FROM receiving', (error, result) => {
                     if (error) {
                         reject(error);
                     } else {
-                        const data = result?.map((time) => {
-                            const newTime = {
-                                ...time,
-                                timeAndDate: moment(time.timeAndDate).format(
-                                    'LLLL'
-                                ),
-                            };
-                            return newTime;
-                        });
-                        tempTime.push(...data);
+                        tempReceiving.push(...result);
                         resolve(result);
                     }
                 });
             });
 
         await productQuery();
-        await SupplierQuery();
+        await VendorQuery();
         await wareHouseQuery();
-        await timeQuery();
+        await receivingQuery();
 
         const {
-            product_id,
-            supplier_id,
-            warehouse_id,
-            time_id,
-            quantity_in_stock,
+            ID_Vendor,
+            ID_Product,
+            ID_Warehouse,
+            ID_Receiving,
+            Stock_Balance,
         } = req.body;
 
         if (
-            !product_id ||
-            !supplier_id ||
-            !warehouse_id ||
-            !time_id ||
-            !quantity_in_stock
+            !ID_Vendor ||
+            !ID_Product ||
+            !ID_Warehouse ||
+            !ID_Receiving ||
+            !Stock_Balance
         ) {
             return res.status(400).render('stock/create', {
                 message: 'Semua field harus di isi!',
                 title: 'Warehouse | Create stock',
                 products: tempProducts,
-                supplier: tempSuppliers,
+                vendor: tempvendors,
                 warehouse: tempWarehouse,
-                time: tempTime,
+                receiving: tempReceiving,
             });
         }
 
         const payloads = {
-            product_id,
-            supplier_id,
-            warehouse_id,
-            time_id,
-            quantity_in_stock,
+            ID_Vendor: ID_Vendor,
+            ID_Product: ID_Product,
+            ID_Warehouse: ID_Warehouse,
+            ID_Receiving: ID_Receiving,
+            Stock_Balance,
         };
 
-        const query = `INSERT INTO stock (product_id, supplier_id, warehouse_id, time_id, quantity_in_stock) VALUES  ('${payloads.product_id}','${payloads.supplier_id}','${payloads.warehouse_id}', '${payloads.time_id}', '${payloads.quantity_in_stock}')`;
+        const query = `INSERT INTO stock (ID_Vendor, ID_Product,  ID_Warehouse, ID_Receiving, Stock_Balance) VALUES  ('${payloads.ID_Vendor}','${payloads.ID_Product}','${payloads.ID_Warehouse}', '${payloads.ID_Receiving}', '${payloads.Stock_Balance}')`;
         db.query(query, (err, _) => {
-            console.log('err', err);
             if (err) {
                 return res
                     .status(500)
@@ -225,7 +205,7 @@ router.post('/stock', async function (req, res) {
             res.status(200).redirect('/stock');
         });
     } catch (error) {
-        console.log('error', error);
+        // console.log('error', error);
     }
 });
 
@@ -287,7 +267,7 @@ router.post('/stock/edit/:id', function (req, res) {
 router.post('/stock/delete/:id', function (req, res) {
     const { id } = req.params;
 
-    const query = `DELETE FROM stock WHERE stock_id = ${id}`;
+    const query = `DELETE FROM stock WHERE ID_Stock = ${id}`;
 
     db.query(query, (err, _) => {
         if (err) {

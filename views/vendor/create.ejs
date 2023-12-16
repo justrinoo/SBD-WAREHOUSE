@@ -4,46 +4,53 @@
         <div class="col-md-8 justify-content-center align-items-center mx-auto">
             <div class="card">
                 <div class="card-header">
-                    <h3>Buat Supplier Gudang</h3>
+                    <h3>Buat Vendor</h3>
                 </div>
                 <div class="card-body">
-                    <form action="/suppliers" method="POST">
+                    <form action="/vendors" method="POST">
                         <div class="form-group">
                             <label for="exampleInputEmail1"
-                                >Nama Supplier</label
+                                >Nama Perusahaan</label
                             >
                             <input
                                 type="text"
                                 class="form-control mt-2 mb-2"
-                                id="supplier_name"
-                                name="supplier_name"
-                                placeholder="Masukan nama supplier..."
+                                id="company_name"
+                                name="company_name"
+                                placeholder="Masukan nama perusahaan..."
                                 autocomplete="off"
                             />
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1"
-                                >Kontak Person</label
-                            >
+                            <label for="exampleInputPassword1">Email</label>
                             <input
                                 type="text"
                                 class="form-control mt-2 mb-2"
-                                id="contact_person"
-                                name="contact_person"
-                                placeholder="Masukan kontak supplier..."
+                                id="email"
+                                name="email"
+                                placeholder="Masukan email..."
                                 autocomplete="off"
                             />
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1"
-                                >Kontak Email</label
-                            >
+                            <label for="exampleInputPassword1">PIC</label>
                             <input
                                 type="text"
                                 class="form-control mt-2 mb-2"
-                                id="contact_email"
-                                name="contact_email"
-                                placeholder="Masukan kontak email supplier..."
+                                id="pic"
+                                name="pic"
+                                placeholder="Masukan PIC..."
+                                autocomplete="off"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Kontak</label>
+                            <input
+                                type="text"
+                                class="form-control mt-2 mb-2"
+                                id="contact"
+                                name="contact"
+                                placeholder="Masukan kontak vendor..."
                                 autocomplete="off"
                             />
                         </div>

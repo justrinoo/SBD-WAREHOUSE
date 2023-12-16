@@ -2,35 +2,35 @@
 <div class="container py-5 pb-5">
     <div class="row">
         <div class="d-flex align-items-center justify-content-between">
-            <h1>Produk Stok</h1>
-            <a class="text-decoration-none" href="/stock/create">
-                <button class="btn btn-outline-primary">Buat Stok</button>
+            <h1>Vendor</h1>
+            <a class="text-decoration-none" href="/vendors/create">
+            <button class="btn btn-outline-primary">
+                    Buat vendor
+                </button>
             </a>
         </div>
-         <% if (data.length > 0) { %>
+    <% if (data.length > 0) { %>
         <table class="table mt-4">
             <thead>
                 <tr>
                     <th class="text-center" scope="col">No</th>
-                    <th class="text-center" scope="col">Penyuplai</th>
-                    <th class="text-center" scope="col">Produk</th>
-                    <th class="text-center" scope="col">Gudang</th>
-                    <th class="text-center" scope="col">Kuantitas Produk</th>
-                    <th class="text-center" scope="col">Persediaan</th>
+                    <th class="text-center" scope="col">Nama</th>
+                    <th class="text-center" scope="col">Email</th>
+                    <th class="text-center" scope="col">PIC</th>
+                    <th class="text-center" scope="col">Kontak</th>
                     <th class="text-center" scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody>
-              <% data.forEach((stock,index) => { %>
+              <% data.forEach((vendor,index) => { %>
                 <tr>
                     <th class="text-center" scope="row"><%= index + 1 %></th>
-                    <td class="text-center"><%= stock?.company_name.charAt(0).toUpperCase() + stock?.company_name.slice(1); %></td>
-                    <td class="text-center""><%= stock?.Product_Name.charAt(0).toUpperCase() + stock?.Product_Name.slice(1); %></td>
-                    <td class="text-center""><%= stock?.warehouse_name.charAt(0).toUpperCase() + stock?.warehouse_name.slice(1); %></td>
-                    <td class="text-center""><%= stock?.Kuantity_Product.charAt(0).toUpperCase() + stock?.Kuantity_Product.slice(1); %></td>
-                    <td class="text-center""><%= stock?.Stock_Balance.charAt(0).toUpperCase() + stock?.Stock_Balance.slice(1); %></td>
+                    <td class="text-center"><%= vendor?.company_name.charAt(0).toUpperCase() + vendor?.company_name.slice(1); %></td>
+                    <td class="text-center""><%= vendor?.email.charAt(0).toUpperCase() + vendor?.email.slice(1); %></td>
+                    <td class="text-center""><%= vendor?.pic.charAt(0).toUpperCase() + vendor?.pic.slice(1); %></td>
+                    <td class="text-center""><%= vendor?.contact.charAt(0).toUpperCase() + vendor?.contact.slice(1); %></td>
                     <td class="text-center"">
-                       <a href="/stocks/detail/<%= stock?.ID_Stock %>" class="text-decoration-none">
+                       <a href="/vendors/detail/<%= vendor?.ID_Vendor %>" class="text-decoration-none">
                              <button class="btn btn-info btn-sm">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +45,22 @@
                             </svg>
                         </button>
                     </a>
-                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#stockDelete<%= stock?.ID_Stock %>">
+                       <a class="text-decoration-none" href="/vendors/edit/<%= vendor?.ID_Vendor %>">
+                         <button class="btn btn-warning btn-sm">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="22"
+                                height="22"
+                                fill="#fff"
+                                viewBox="0 0 256 256"
+                            >
+                                <path
+                                    d="M227.32,73.37,182.63,28.69a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H216a8,8,0,0,0,0-16H115.32l112-112A16,16,0,0,0,227.32,73.37ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.69,147.32,64l24-24L216,84.69Z"
+                                ></path>
+                            </svg>
+                        </button>
+                       </a>
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#productDelete<%= vendor?.ID_Vendor %>">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="22"
@@ -58,17 +73,17 @@
                                 ></path>
                             </svg>
                         </button>
-                            <div class="modal fade" id="stockDelete<%= stock?.ID_Stock %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal fade" id="productDelete<%= vendor?.ID_Vendor %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                 <div class="modal-header">
-                                    <h3 class="modal-title fs-5 fw-light" id="staticBackdropLabel">Yakin ingin menghapus Stock <span class="fw-bold">
-                                        <%= stock?.Product_Name %>
+                                    <h3 class="modal-title fs-5 fw-light" id="staticBackdropLabel">Yakin ingin menghapus vendor <span class="fw-bold">
+                                        <%= vendor?.company_name %>
                                     </span>?</h3>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-footer">
-                                    <form action="/stock/delete/<%= stock?.ID_Stock %>" method="post">
+                                    <form action="/vendors/delete/<%= vendor?.ID_Vendor %>" method="post">
                                         <button type="submit" class="btn btn-outline-danger">Hapus</button>
                                     </form>
                                 </div>

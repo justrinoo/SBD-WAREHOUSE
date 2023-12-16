@@ -4,7 +4,7 @@
         <div class="col-md-8 justify-content-center align-items-center mx-auto">
             <div class="card">
                 <div class="card-header">
-                    <h3>Buat Produk Gudang</h3>
+                    <h3>Buat Produk</h3>
                 </div>
                 <div class="card-body">
                     <form action="/products" method="POST">
@@ -13,35 +13,33 @@
                             <input
                                 type="text"
                                 class="form-control mt-2 mb-2"
-                                id="product_name"
-                                name="product_name"
+                                id="Product_Name"
+                                name="Product_Name"
                                 placeholder="Masukan nama produk..."
                                 autocomplete="off"
                             />
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1"
-                                >Kategori Produk</label
+                                >Tipe Produk</label
                             >
                             <input
                                 type="text"
                                 class="form-control mt-2 mb-2"
-                                id="category"
-                                name="category"
-                                placeholder="Masukan kategori produk..."
+                                id="Type_Product"
+                                name="Type_Product"
+                                placeholder="Masukan tipe produk..."
                                 autocomplete="off"
                             />
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1"
-                                >Brand Produk</label
-                            >
+                            <label for="exampleInputPassword1">Kategori</label>
                             <input
                                 type="text"
                                 class="form-control mt-2 mb-2"
-                                id="brand"
-                                name="brand"
-                                placeholder="Masukan brand produk..."
+                                id="Category"
+                                name="Category"
+                                placeholder="Masukan Tipe Produk..."
                                 autocomplete="off"
                             />
                         </div>
@@ -51,7 +49,7 @@
                         <% } %>
 
                         <button type="submit" class="btn btn-primary mt-2">
-                            Kirim
+                            Buat
                         </button>
                     </form>
                 </div>

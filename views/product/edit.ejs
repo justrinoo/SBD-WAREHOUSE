@@ -23,7 +23,7 @@
                 </div>
                 <div class="card-body">
                     <form
-                        action="/products/edit/<%= product?.product_id %>"
+                        action="/products/edit/<%= product?.ID_Product %>"
                         method="POST"
                     >
                         <div class="form-group">
@@ -31,39 +31,37 @@
                             <input
                                 type="text"
                                 class="form-control mt-2 mb-2"
-                                id="product_name"
-                                name="product_name"
-                                value="<%= product?.product_name.charAt(0).toUpperCase() + product?.product_name.slice(1); %>"
+                                id="Product_Name"
+                                name="Product_Name"
+                                value="<%= product?.Product_Name.charAt(0).toUpperCase() + product?.Product_Name.slice(1); %>"
                                 placeholder="Masukan nama produk..."
                                 autocomplete="off"
                             />
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1"
-                                >Kategori Produk</label
+                                >Tipe Produk</label
                             >
                             <input
                                 type="text"
                                 class="form-control mt-2 mb-2"
-                                id="category"
-                                name="category"
-                                placeholder="Masukan kategori produk..."
+                                id="Type_Product"
+                                name="Type_Product"
+                                placeholder="Masukan tipe produk..."
                                 autocomplete="off"
-                                value="<%= product?.category.charAt(0).toUpperCase() + product?.category.slice(1); %>"
+                                value="<%= product?.Type_Product.charAt(0).toUpperCase() + product?.Type_Product.slice(1); %>"
                             />
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1"
-                                >Brand Produk</label
-                            >
+                            <label for="exampleInputPassword1">Kategori</label>
                             <input
                                 type="text"
                                 class="form-control mt-2 mb-2"
-                                id="brand"
-                                name="brand"
-                                placeholder="Masukan brand produk..."
+                                id="Category"
+                                name="Category"
+                                placeholder="Masukan Tipe Produk..."
                                 autocomplete="off"
-                                value="<%= product?.brand.charAt(0).toUpperCase() + product?.brand.slice(1); %>"
+                                value="<%= product?.Category.charAt(0).toUpperCase() + product?.Category.slice(1); %>"
                             />
                         </div>
 
