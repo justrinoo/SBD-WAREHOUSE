@@ -1,64 +1,62 @@
 <%- include('../partials/header.ejs') %>
 <style>
-    .isSelected {
-        border: 1.5px solid royalblue;
-    }
+	.isSelected {
+		border: 1.5px solid royalblue;
+	}
 </style>
 <div class="container py-5 pb-5">
-    <div class="row">
-        <div class="col-md-8 justify-content-center align-items-center mx-auto">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Buat Produk Stok</h3>
-                </div>
-                <div class="card-body">
-                    <form action="/stock" method="POST">
-                        <div class="form-group">
-                            <label for="product_id">Nama Produk</label>
-                            <select
-                                class="form-select mb-3 mt-2"
-                                name="ID_Product"
-                                id="ID_Product"
-                            >
-                                <option>Pilih Produk</option>
-                                <% products.forEach((product) => { %>
-                                <option value="<%= product.ID_Product %>">
-                                    <%= product.Product_Name %>
-                                </option>
-                                <% }) %>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="warehouse_id">Vendor</label>
-                            <select
-                                class="form-select mb-3 mt-2"
-                                name="ID_Vendor"
-                                id="ID_Vendor"
-                            >
-                                <option>Pilih Vendor</option>
-                                <% vendor.forEach((vend) => { %>
-                                <option value="<%= vend.ID_Vendor %>">
-                                    <%= vend.company_name %>
-                                </option>
-                                <% }) %>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="ID_Warehouse">Nama Gudang</label>
-                            <select
-                                class="form-select mb-3 mt-2"
-                                name="ID_Warehouse"
-                                id="ID_Warehouse"
-                            >
-                                <option>Pilih Gudang</option>
-                                <% warehouse.forEach((gudang) => { %>
-                                <option value="<%= gudang.ID_Warehouse %>">
-                                    <%= gudang.warehouse_name %>
-                                </option>
-                                <% }) %>
-                            </select>
-                        </div>
-                        <div class="form-group">
+	<div class="row">
+		<div
+			class="col-md-8 justify-content-center align-items-center mx-auto">
+			<div class="card">
+				<div class="card-header">
+					<h3>Buat Produk Stok</h3>
+				</div>
+				<div class="card-body">
+					<form action="/stock" method="POST">
+						<div class="form-group">
+							<label for="product_id">Nama Produk</label>
+							<select
+								class="form-select mb-3 mt-2"
+								name="ID_Product"
+								id="ID_Product">
+								<option>Pilih Produk</option>
+								<% products.forEach((product) => { %>
+								<option value="<%= product.ID_Product %>">
+									<%= product.Product_Name %>
+								</option>
+								<% }) %>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="warehouse_id">Vendor</label>
+							<select
+								class="form-select mb-3 mt-2"
+								name="ID_Vendor"
+								id="ID_Vendor">
+								<option>Pilih Vendor</option>
+								<% vendor.forEach((vend) => { %>
+								<option value="<%= vend.ID_Vendor %>">
+									<%= vend.company_name %>
+								</option>
+								<% }) %>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="ID_Warehouse">Nama Gudang</label>
+							<select
+								class="form-select mb-3 mt-2"
+								name="ID_Warehouse"
+								id="ID_Warehouse">
+								<option>Pilih Gudang</option>
+								<% warehouse.forEach((gudang) => { %>
+								<option value="<%= gudang.ID_Warehouse %>">
+									<%= gudang.warehouse_name %>
+								</option>
+								<% }) %>
+							</select>
+						</div>
+						<!-- <div class="form-group">
                             <label for="ID_Receiving">Kuantity Produk</label>
                             <select
                                 class="form-select mb-3 mt-2"
@@ -72,43 +70,48 @@
                                 </option>
                                 <% }) %>
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="Stock_Balance">Total Penerimaan</label>
-                            <input
-                                type="number"
-                                min="1"
-                                class="form-control mt-2 mb-2"
-                                name="Stock_Balance"
-                                id="Stock_Balance"
-                                placeholder="Masukan Total Penerimaan..."
-                            />
-                        </div>
+                        </div> -->
+						<div class="form-group">
+							<label for="Stock_Balance"
+								>Total Penerimaan</label
+							>
+							<input
+								type="number"
+								min="1"
+								class="form-control mt-2 mb-2"
+								name="Stock_Balance"
+								id="Stock_Balance"
+								placeholder="Masukan Total Penerimaan..." />
+						</div>
 
-                        <% if (message) { %>
-                        <p class="text-danger font-semibold"><%= message %></p>
-                        <% } %>
+						<% if (message) { %>
+						<p class="text-danger font-semibold">
+							<%= message %>
+						</p>
+						<% } %>
 
-                        <button type="submit" class="btn btn-primary mt-2">
-                            Buat Stock
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+						<button
+							type="submit"
+							class="btn btn-primary mt-2">
+							Buat Stock
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <script lang="javascript">
-    function setTime(clickedCard,data) {
-        const selectedIndex = clickedCard.getAttribute('data-index');
-        const prevSelected = document.querySelector('.isSelected');
-        if (prevSelected) {
-            prevSelected.classList.remove('isSelected');
-        }
-        clickedCard.classList.add('isSelected');
-        const res = JSON.parse(data);
-        sessionStorage.setItem('time_id', res.time_id);
-    }
+	function setTime(clickedCard,data) {
+	    const selectedIndex = clickedCard.getAttribute('data-index');
+	    const prevSelected = document.querySelector('.isSelected');
+	    if (prevSelected) {
+	        prevSelected.classList.remove('isSelected');
+	    }
+	    clickedCard.classList.add('isSelected');
+	    const res = JSON.parse(data);
+	    sessionStorage.setItem('time_id', res.time_id);
+	}
 </script>
 <%- include('../partials/footer.ejs') %>

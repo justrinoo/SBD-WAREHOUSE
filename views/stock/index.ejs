@@ -15,7 +15,7 @@
                     <th class="text-center" scope="col">Penyuplai</th>
                     <th class="text-center" scope="col">Produk</th>
                     <th class="text-center" scope="col">Gudang</th>
-                    <th class="text-center" scope="col">Kuantitas Produk</th>
+                    <!-- <th class="text-center" scope="col">Kuantitas Produk</th> -->
                     <th class="text-center" scope="col">Persediaan</th>
                     <th class="text-center" scope="col">Aksi</th>
                 </tr>
@@ -27,7 +27,7 @@
                     <td class="text-center"><%= stock?.company_name.charAt(0).toUpperCase() + stock?.company_name.slice(1); %></td>
                     <td class="text-center""><%= stock?.Product_Name.charAt(0).toUpperCase() + stock?.Product_Name.slice(1); %></td>
                     <td class="text-center""><%= stock?.warehouse_name.charAt(0).toUpperCase() + stock?.warehouse_name.slice(1); %></td>
-                    <td class="text-center""><%= stock?.Kuantity_Product.charAt(0).toUpperCase() + stock?.Kuantity_Product.slice(1); %></td>
+                    <!-- <td class="text-center""><%= stock?.Kuantity_Product.charAt(0).toUpperCase() + stock?.Kuantity_Product.slice(1); %></td> -->
                     <td class="text-center""><%= stock?.Stock_Balance.charAt(0).toUpperCase() + stock?.Stock_Balance.slice(1); %></td>
                     <td class="text-center"">
                        <a href="/stocks/detail/<%= stock?.ID_Stock %>" class="text-decoration-none">
